@@ -21,7 +21,7 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r requirements.txt
-      - run: pytest -q
+      - run: PYTHONPATH=. pytest -q
   android-debug-apk:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +31,7 @@ jobs:
           distribution: temurin
           java-version: "17"
       - uses: android-actions/setup-android@v3
+      - run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
